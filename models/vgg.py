@@ -226,7 +226,8 @@ def vgg_19(inputs,
            spatial_squeeze=True,
            scope='vgg_19',
            fc_conv_padding='VALID',
-           global_pool=False):
+           global_pool=False,
+           reuse = False):
   """Oxford Net VGG 19-Layers version E Example.
 
   Note: All the fully_connected layers have been transformed to conv2d layers.
@@ -258,7 +259,7 @@ def vgg_19(inputs,
       None).
     end_points: a dict of tensors with intermediate activations.
   """
-  with tf.variable_scope(scope, 'vgg_19', [inputs]) as sc:
+  with tf.variable_scope(scope, 'vgg_19', [inputs], reuse=reuse) as sc:
     end_points_collection = sc.original_name_scope + '_end_points'
     # Collect outputs for conv2d, fully_connected and max_pool2d.
     with slim.arg_scope([slim.conv2d, slim.fully_connected, slim.max_pool2d],
